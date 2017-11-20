@@ -1,0 +1,53 @@
+---
+title: "Homework 1"
+author: "Akira Sasaki"
+date: "11/19/2017"
+output:
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE, echo=TRUE}
+library(knitr)
+opts_chunk$set(message = FALSE, error = TRUE, fig.pos = 'H', 
+tidy.opts=list(width.cutoff=65), tidy=TRUE, fig.path='figs/', cache.path='cache/graphics-', 
+fig.pos ='H', fig.align='center', fig.width = 5, fig.height = 4, 
+fig.show = 'hold',
+cache = TRUE, par = TRUE)
+```
+
+```{r setup 2, include=FALSE, echo=TRUE}
+install.packages("tidyverse")
+library(tidyverse)
+install.packages("gapminder")
+library(gapminder)
+```
+
+##Plot 1
+```{r Plot 1, include = TRUE, echo = TRUE}
+data(mpg)
+p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
+p + geom_point(mapping = aes(color = class)) + geom_smooth(se = FALSE) +
+  labs(title = "Fuel efficiency generally decreases with engine size",
+       subtitle = "Two seaters (sports cars) are an exception because of their light weight",
+       caption = "Data from fueleconomy.gov")
+```
+
+##Plot 2
+```{r Plot 2, include = TRUE, echo = TRUE}
+p <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
+p + geom_point(mapping = aes(color = drv, fill = drv)) + geom_smooth(mapping = aes(linetype = drv), se = FALSE)
+```
+
+##Plot 3
+```{r Plot 3, include = TRUE, echo = TRUE}
+data(diamonds)
+p <- ggplot(data = diamonds, mapping = aes(x = price, fill = cut))
+p + geom_histogram()
+```
+
+##Plot 4
+```{r Plot 4, include = TRUE, echo = TRUE}
+p <- ggplot(data = diamonds, mapping = aes(x = carat, y = price))
+p + geom_smooth() + facet_grid(cut ~ color)
+```
